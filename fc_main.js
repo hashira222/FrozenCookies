@@ -638,7 +638,7 @@ function getProbabilityModifiers(listType) {
     var result;
     switch (listType) {
         case "golden":
-            result = (Game.Has('吉日') ? 0.5 : 1) * (Game.Has('発見能力') ? 0.5 : 1) * (Game.Has('うまくいったぜ') ? 0.95 : 1);
+            result = (Game.Has('吉日') ? 0.5 : 1) * (Game.Has('発見能力') ? 0.5 : 1) * (Game.Has('Golden goose egg') ? 0.95 : 1);
             break;
         case "reindeer":
             result = Game.Has('Reindeer baking grounds') ? 0.5 : 1;
@@ -730,7 +730,7 @@ function cookieValue(bankAmount, wrathValue, wrinklerCount) {
     var cps = baseCps();
     var clickCps = baseClickingCps(FrozenCookies.autoClick * FrozenCookies.cookieClickSpeed);
     var frenzyCps = FrozenCookies.autoFrenzy ? baseClickingCps(FrozenCookies.autoFrenzy * FrozenCookies.frenzyClickSpeed) : clickCps;
-    var luckyMod = Game.Has('Get lucky') ? 2 : 1;
+    var luckyMod = Game.Has('うまくいったぜ') ? 2 : 1;
     wrathValue = wrathValue != null ? wrathValue : Game.elderWrath;
     wrinklerCount = wrinklerCount != null ? wrinklerCount : (wrathValue ? 10 : 0);
     var wrinkler = wrinklerMod(wrinklerCount);
@@ -771,7 +771,7 @@ function cookieStats(bankAmount, wrathValue, wrinklerCount) {
     var cps = baseCps();
     var clickCps = baseClickingCps(FrozenCookies.autoClick * FrozenCookies.cookieClickSpeed);
     var frenzyCps = FrozenCookies.autoFrenzy ? baseClickingCps(FrozenCookies.autoFrenzy * FrozenCookies.frenzyClickSpeed) : clickCps;
-    var luckyMod = Game.Has('Get lucky') ? 2 : 1;
+    var luckyMod = Game.Has('うまくいったぜ') ? 2 : 1;
     var clickFrenzyMod = clickBuffBonus();
     wrathValue = wrathValue != null ? wrathValue : Game.elderWrath;
     wrinklerCount = wrinklerCount != null ? wrinklerCount : (wrathValue ? 10 : 0);
@@ -948,7 +948,7 @@ function bestBank(minEfficiency) {
 
 function weightedCookieValue(useCurrent) {
     var cps = baseCps();
-    var lucky_mod = Game.Has('Get lucky');
+    var lucky_mod = Game.Has('うまくいったぜ');
     var base_wrath = lucky_mod ? 401.835 * cps : 396.51 * cps;
     //  base_wrath += 192125500000;
     var base_golden = lucky_mod ? 2804.76 * cps : 814.38 * cps;
@@ -978,12 +978,12 @@ function weightedCookieValue(useCurrent) {
 }
 
 function maxLuckyValue() {
-    var gcMod = Game.Has('Get lucky') ? 6300 : 900;
+    var gcMod = Game.Has('うまくいったぜ') ? 6300 : 900;
     return baseCps() * gcMod;
 }
 
 function maxLuckyBank() {
-    return Game.Has('Get lucky') ? luckyFrenzyBank() : luckyBank();
+    return Game.Has('うまくいったぜ') ? luckyFrenzyBank() : luckyBank();
 }
 
 function maxCookieTime() {
@@ -1009,7 +1009,7 @@ function gcEfficiency() {
 function delayAmount() {
     return bestBank(nextChainedPurchase().efficiency).cost;
     /*
-      if (nextChainedPurchase().efficiency > gcEfficiency() || (Game.frenzy && Game.Has('Get lucky'))) {
+      if (nextChainedPurchase().efficiency > gcEfficiency() || (Game.frenzy && Game.Has('うまくいったぜ'))) {
         return maxLuckyValue() * 10;
       } else if (weightedCookieValue() > weightedCookieValue(true)) {
         return Math.min(maxLuckyValue() * 10, Math.max(0,(nextChainedPurchase().efficiency - (gcEfficiency() * baseCps())) / gcEfficiency()));
